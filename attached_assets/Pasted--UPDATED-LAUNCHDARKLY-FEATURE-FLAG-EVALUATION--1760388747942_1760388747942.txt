@@ -1,0 +1,236 @@
+// ============================================
+// UPDATED: LAUNCHDARKLY FEATURE FLAG EVALUATION
+// ============================================
+// THIS REPLACES THE evaluateFeatureFlags() FUNCTION IN YOUR HTML
+//
+// WHAT CHANGED:
+// - OLD: JavaScript decided flags itself (simulated)
+// - NEW: JavaScript asks Python backend, which asks LaunchDarkly
+//
+// FIND THIS FUNCTION IN YOUR HTML (around line 450)
+// AND REPLACE IT WITH THIS VERSION:
+
+/**
+ * Evaluates feature flags by asking the Python Flask backend
+ * 
+ * FLOW:
+ * 1. JavaScript collects user context (name, role)
+ * 2. JavaScript generates email from name (already done in your code)
+ * 3. Sends that data to Python backend via POST /api/feature-flags
+ * 4. Python asks LaunchDarkly: "What flags for this user?"
+ * 5. Python sends flag values back to JavaScript
+ * 6. JavaScript stores flags and applies them to the UI
+ * 
+ * NOTE: Your HTML already creates email from name in the "Enter Site" button click:
+ * appState.userContext.email = `${name.toLowerCase().replace(/\s+/g, '.')}@example.com`;
+ * So by the time this function runs, email is already available!
+ */
+async function evaluateFeatureFlags() {
+    console.log('🔄 Asking LaunchDarkly for feature flags...');
+    console.log('   User context:', appState.userContext);
+    
+    try {
+        // STEP 1: Send user context to Python backend
+        // The email was already generated when user clicked "Enter Site"
+        // Format: "john doe" → "john.doe@example.com"
+        const response = await fetch('/api/feature-flags', {
+            method: 'POST',  // POST request (sending data)
+            headers: {
+                'Content-Type': 'application/json'  // Tell server we're sending JSON
+            },
+            body: JSON.stringify({
+                // Send user information to backend
+                email: appState.userContext.email,      // Already generated from name
+                name: appState.userContext.name,        // User entered this
+                role: appState.userContext.role,        // User selected this (recruiter/teammate)
+                location: appState.userContext.location, // Default: "Watford, England, GB"
+                interest: appState.userContext.interest  // Default: "devops"
+            })
+        });
+        
+        // STEP 2: Check if request was successful
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        // STEP 3: Parse the JSON response from Python
+        // Response looks like:
+        // {
+        //   "typewriter_animation": true,
+        //   "mode_toggle": "fun",
+        //   "surprise_variant": "books",
+        //   "show_debug_panel": false
+        // }
+        const flags = await response.json();
+        
+        console.log('✅// ============================================
+// UPDATED: LAUNCHDARKLY FEATURE FLAG EVALUATION
+// ============================================
+// THIS REPLACES THE evaluateFeatureFlags() FUNCTION IN YOUR HTML
+//
+// WHAT CHANGED:
+// - OLD: JavaScript decided flags itself (simulated)
+// - NEW: JavaScript asks Python backend, which asks LaunchDarkly
+//
+// FIND THIS FUNCTION IN YOUR HTML (around line 450)
+// AND REPLACE IT WITH THIS VERSION:
+
+/**
+ * Evaluates feature flags by asking the Python Flask backend
+ * 
+ * FLOW:
+ * 1. JavaScript collects user context (name, email, role, etc.)
+ * 2. Sends that data to Python backend via POST /api/feature-flags
+ * 3. Python asks LaunchDarkly: "What flags for this user?"
+ * 4. Python sends flag values back to JavaScript
+ * 5. JavaScript stores flags and applies them to the UI
+ */
+async function evaluateFeatureFlags() {
+    console.log('🔄 Asking LaunchDarkly for feature flags...');
+    console.log('   User context:', appState.userContext);
+    
+    try {
+        // STEP 1: Send user context to Python backend
+        // This makes a POST request to /api/feature-flags endpoint
+        const response = await fetch('/api/feature-flags', {
+            method: 'POST',  // POST request (sending data)
+            headers: {
+                'Content-Type': 'application/json'  // Tell server we're sending JSON
+            },
+            body: JSON.stringify({
+                // Send user information to backend
+                email: appState.userContext.email,
+                name: appState.userContext.name,
+                role: appState.userContext.role,
+                location: appState.userContext.location,
+                interest: appState.userContext.interest
+            })
+        });
+        
+        // STEP 2: Check if request was successful
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        // STEP 3: Parse the JSON response from Python
+        // Response looks like:
+        // {
+        //   "typewriter_animation": true,
+        //   "mode_toggle": "fun",
+        //   "surprise_variant": "books",
+        //   "show_debug_panel": false
+        // }
+        const flags = await response.json();
+        
+        console.log('✅ Received flags from LaunchDarkly:', flags);
+        
+        // STEP 4: Update app state with flag values from LaunchDarkly
+        // Now the UI will use these values instead of hardcoded logic
+        
+        // FEATURE FLAG 1: typewriter-animation (boolean)
+        appState.typewriterAnimation = flags.typewriter_animation;
+        console.log('   🚩 typewriter-animation:', appState.typewriterAnimation);
+        
+        // FEATURE FLAG 2: mode-toggle (string: "professional" or "fun")
+        appState.currentMode = flags.mode_toggle;
+        console.log('   🚩 mode-toggle:', appState.currentMode);
+        
+        // FEATURE FLAG 3: dynamic-content-widget (string: "books" or "facts")
+        appState.surpriseVariant = flags.surprise_variant;
+        console.log('   🚩 dynamic-content-widget:', appState.surpriseVariant);
+        
+        // FEATURE FLAG 4: show-debug-panel (boolean)
+        appState.debugPanelVisible = flags.show_debug_panel;
+        console.log('   🚩 show-debug-panel:', appState.debugPanelVisible);
+        
+        console.log('✅ Feature flags applied successfully!');
+        
+    } catch (error) {
+        // STEP 5: Handle errors gracefully
+        // If LaunchDarkly is down or there's a network error, use safe defaults
+        console.error('❌ Error fetching feature flags:', error);
+        console.log('⚠️  Using fallback defaults...');
+        
+        // Fallback to safe defaults if LaunchDarkly fails
+        appState.typewriterAnimation = false;  // Safe: static text
+        appState.currentMode = 'professional';  // Safe: conservative mode
+        appState.surpriseVariant = 'books';     // Default: books
+        appState.debugPanelVisible = false;     // Safe: hidden
+        
+        // Show error notification to user
+        showNotification('⚠️ Using default settings (LaunchDarkly unavailable)', false);
+    }
+}
+
+// ============================================
+// OPTIONAL: TRACK METRICS TO LAUNCHDARKLY
+// ============================================
+// ADD THIS FUNCTION TO YOUR HTML (OPTIONAL)
+// This allows you to track custom metrics for A/B testing
+
+/**
+ * Tracks a metric/event to LaunchDarkly for experiment analysis
+ * 
+ * EXAMPLE USAGE:
+ * When user clicks "Surprise Me" button, call:
+ * trackLaunchDarklyMetric('surprise_button_clicks', 1);
+ * 
+ * This data will appear in LaunchDarkly experiment results
+ */
+async function trackLaunchDarklyMetric(metricName, value = 1) {
+    console.log(`📊 Tracking metric to LaunchDarkly: ${metricName}`);
+    
+    try {
+        // Send metric to Python backend
+        const response = await fetch('/api/track-metric', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_email: appState.userContext.email,
+                metric_name: metricName,
+                value: value
+            })
+        });
+        
+        if (response.ok) {
+            console.log(`✅ Metric tracked: ${metricName}`);
+        } else {
+            console.warn(`⚠️  Failed to track metric: ${metricName}`);
+        }
+        
+    } catch (error) {
+        console.error('❌ Error tracking metric:', error);
+    }
+}
+
+// ============================================
+// UPDATED: SURPRISE BUTTON CLICK HANDLER
+// ============================================
+// FIND showSurpriseContent() IN YOUR HTML
+// ADD THIS LINE after tracking the Segment event:
+
+// Inside showSurpriseContent(), AFTER the trackSegmentEvent() call, ADD:
+// Track to LaunchDarkly for experiment analysis
+trackLaunchDarklyMetric('surprise_button_clicks', 1);
+
+// EXAMPLE - Your existing function becomes:
+/*
+function showSurpriseContent() {
+    appState.surpriseClickCount++;
+    // ... existing code ...
+    
+    // SEGMENT: Track experiment interaction
+    trackSegmentEvent('Surprise Button Clicked', {
+        variant: appState.surpriseVariant,
+        click_number: appState.surpriseClickCount,
+        // ... other properties ...
+    });
+    
+    // NEW: LAUNCHDARKLY: Track metric for experiment
+    trackLaunchDarklyMetric('surprise_button_clicks', 1);
+    
+    // ... rest of existing code ...
+}
+*/
