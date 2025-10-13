@@ -452,6 +452,12 @@
                 updateDebugPanel('mode', appState.currentMode);
                 updateDebugPanel('variant', appState.surpriseVariant);
 
+                // Show/hide debug panel based on show_debug_panel flag
+                if (flags.show_debug_panel) {
+                    document.getElementById('debugPanel').classList.add('visible');
+                    console.log('🐛 Debug panel auto-enabled by LaunchDarkly flag');
+                }
+
                 // ========================================
                 // STEP 4: APPLY FEATURES BASED ON FLAGS
                 // ========================================
