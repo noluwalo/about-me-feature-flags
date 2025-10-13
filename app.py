@@ -96,6 +96,7 @@ def get_feature_flags():
         False  # Default: hidden
     )
     print(f"   🚩 show-debug-panel: {show_debug_panel}")
+    print(f"   🔍 DEBUG: Flag type: {type(show_debug_panel)}, Value: {repr(show_debug_panel)}")
 
     # Return flags to frontend
     flags = {
