@@ -70,11 +70,11 @@ def get_feature_flags():
 
     # Evaluate feature flags
     typewriter_animation = ld_client.variation(
-        'typewriter-animation',
+        'type-writer-animation',
         context,
         False  # Default: OFF
     )
-    print(f"   🚩 typewriter-animation: {typewriter_animation}")
+    print(f"   🚩 type-writer-animation: {typewriter_animation}")
 
     mode_toggle = ld_client.variation(
         'mode-toggle',
