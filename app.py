@@ -18,13 +18,27 @@ CORS(app)
 # ============================================
 # INITIALIZE LAUNCHDARKLY CLIENT
 # ============================================
-# Get SDK key from Replit Secrets (we'll add this in Step 7)
+# Set your LaunchDarkly SDK key
 LAUNCHDARKLY_SDK_KEY = os.environ.get('LAUNCHDARKLY_SDK_KEY', 'sdk-c33b0d5d-5bb8-4b17-8b92-7191ab9abf7a')
 
 ldclient.set_config(Config(LAUNCHDARKLY_SDK_KEY))
 ld_client = ldclient.get()
 
-print("✅ LaunchDarkly client initialized")
+# Check if SDK initialized successfully
+if not ld_client.is_initialized():
+    print('❌ SDK failed to initialize')
+else:
+    print('✅ SDK successfully initialized')
+    
+    # Tracking your memberId lets LaunchDarkly know you are connected
+    tracking_context = (
+        Context.builder('user-key-123abcde')
+        .kind('user')
+        .set('email', 'biz@face.dev')
+        .build()
+    )
+    ld_client.track('68e01bdc6818ca09d507d02d', tracking_context)
+    print('📊 Tracking event sent to LaunchDarkly')
 
 # ============================================
 # ROUTE 1: SERVE THE HOMEPAGE
@@ -45,6 +59,7 @@ def get_feature_flags():
 
     # Build LaunchDarkly Context
     context = Context.builder(user_data['email']) \
+        .kind('user') \
         .name(user_data.get('name', 'Anonymous')) \
         .set('role', user_data.get('role', 'general')) \
         .set('location', user_data.get('location', 'Unknown')) \
