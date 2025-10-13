@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me - Feature Flags Demo</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script type="text/javascript">
+      !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics._writeKey="PLACEHOLDER";analytics.SNIPPET_VERSION="4.15.3";
+      }}();
+    </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -298,9 +303,23 @@
     </div>
     <script>
         // ========================================
-        // FLASK BACKEND API URL
+        // FLASK BACKEND API URL & SEGMENT INITIALIZATION
         // ========================================
-        const BACKEND_URL = 'http://localhost:5000';
+        const BACKEND_URL = '';  // Use relative URL for Replit environment
+
+        // Load Segment write key and initialize analytics
+        (async function initSegment() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/segment-key`);
+                const data = await response.json();
+                if (data.writeKey) {
+                    analytics.load(data.writeKey);
+                    console.log('✅ Segment Analytics initialized with key:', data.writeKey.substring(0, 10) + '...');
+                }
+            } catch (error) {
+                console.error('❌ Failed to load Segment key:', error);
+            }
+        })();
 
         const appState = {
             currentMode: 'professional',
@@ -332,16 +351,22 @@
             const tracker = document.getElementById(id);
             const code = document.getElementById(codeId);
             let displayCode = '';
+            
+            // Make REAL Segment analytics calls
             if (type === 'identify') {
                 displayCode = `analytics.identify('${name}', ${JSON.stringify(props, null, 2)});`;
                 console.log(`👤 Segment Identify: ${name}`, props);
+                analytics.identify(name, props);
             } else if (type === 'track') {
                 displayCode = `analytics.track('${name}', ${JSON.stringify(props, null, 2)});`;
                 console.log(`📊 Segment Event: ${name}`, props);
+                analytics.track(name, props);
             } else if (type === 'page') {
                 displayCode = `analytics.page('${name}', ${JSON.stringify(props, null, 2)});`;
                 console.log(`📄 Segment Page: ${name}`, props);
+                analytics.page(name, props);
             }
+            
             code.textContent = displayCode;
             tracker.classList.add('visible');
             setTimeout(() => tracker.classList.remove('visible'), 5000);

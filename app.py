@@ -120,6 +120,14 @@ def health_check():
     })
 
 # ============================================
+# ROUTE 4: GET SEGMENT WRITE KEY
+# ============================================
+@app.route('/api/segment-key', methods=['GET'])
+def get_segment_key():
+    segment_key = os.environ.get('SEGMENT_WRITE_KEY', '')
+    return jsonify({'writeKey': segment_key})
+
+# ============================================
 # CLEANUP
 # ============================================
 # Note: In production with gunicorn, we let the LaunchDarkly client 
