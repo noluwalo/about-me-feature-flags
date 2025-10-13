@@ -203,43 +203,6 @@
         .debug-panel.visible { display: block; }
         .debug-panel h4 { color: #0ff; margin-bottom: 10px; }
         .debug-item { margin: 5px 0; padding: 5px; }
-        
-        .log-console {
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background: #1a1a1a; color: #0f0;
-            font-family: 'Courier New', monospace; font-size: 0.9rem;
-            z-index: 2000; border-top: 2px solid #0f0;
-            transition: transform 0.3s ease;
-            max-height: 400px; display: flex; flex-direction: column;
-        }
-        .log-console.collapsed { transform: translateY(calc(100% - 35px)); }
-        .log-console-header {
-            background: #0a0a0a; padding: 8px 15px;
-            border-bottom: 1px solid #0f0; cursor: ns-resize;
-            display: flex; align-items: center; justify-content: space-between;
-            user-select: none;
-        }
-        .log-console-header:hover { background: #1a1a1a; }
-        .log-console-title {
-            color: #0ff; font-weight: bold;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .log-console-controls { display: flex; gap: 10px; }
-        .log-console-btn {
-            background: transparent; border: 1px solid #0f0;
-            color: #0f0; padding: 3px 10px; cursor: pointer;
-            border-radius: 3px; font-family: 'Courier New', monospace;
-        }
-        .log-console-btn:hover { background: #0f0; color: #000; }
-        .log-console-content {
-            padding: 10px 15px; overflow-y: auto; flex: 1;
-            line-height: 1.6;
-        }
-        .log-entry { margin: 3px 0; white-space: pre-wrap; word-break: break-word; }
-        .log-entry.request { color: #3498db; }
-        .log-entry.flag { color: #f39c12; }
-        .log-entry.success { color: #2ecc71; }
-        .log-entry.error { color: #e74c3c; }
     </style>
 </head>
 <body class="professional-mode">
@@ -754,84 +717,6 @@
 
             requestAnimationFrame(animate);
         }
-
-        // ========================================
-        // BACKEND LOG CONSOLE CONTROLS
-        // ========================================
-        const logConsole = document.getElementById('logConsole');
-        const logContent = document.getElementById('logConsoleContent');
-        const toggleBtn = document.getElementById('toggleConsole');
-        const clearBtn = document.getElementById('clearLogs');
-        const logCountSpan = document.getElementById('logCount');
-        let logCount = 0;
-        let logs = [];
-
-        // Toggle console expand/collapse
-        toggleBtn.addEventListener('click', () => {
-            logConsole.classList.toggle('collapsed');
-            toggleBtn.textContent = logConsole.classList.contains('collapsed') ? '▲' : '▼';
-        });
-
-        // Clear logs
-        clearBtn.addEventListener('click', () => {
-            logs = [];
-            logCount = 0;
-            logContent.innerHTML = '<div class="log-entry success">✅ Logs cleared</div>';
-            logCountSpan.textContent = '0 logs';
-        });
-
-        // Add log entry to console
-        function addLogEntry(message, type = 'default') {
-            const entry = document.createElement('div');
-            entry.className = `log-entry ${type}`;
-            entry.textContent = message;
-            logs.push({ message, type, timestamp: Date.now() });
-            logContent.appendChild(entry);
-            logCount++;
-            logCountSpan.textContent = `${logCount} log${logCount !== 1 ? 's' : ''}`;
-            logContent.scrollTop = logContent.scrollHeight;
-        }
-
-        // Intercept fetch calls to log backend requests/responses
-        const originalFetch = window.fetch;
-        window.fetch = async function(...args) {
-            const url = args[0];
-            if (url.includes('/api/feature-flags')) {
-                addLogEntry('📥 Requesting feature flags from backend...', 'request');
-            }
-            const response = await originalFetch.apply(this, args);
-            const clonedResponse = response.clone();
-            
-            if (url.includes('/api/feature-flags')) {
-                const data = await clonedResponse.json();
-                addLogEntry(`   Role: ${appState.userContext.role}`, 'request');
-                addLogEntry('   ✅ LaunchDarkly context built', 'success');
-                addLogEntry(`   🚩 type-writer-animation: ${data.typewriter_animation}`, 'flag');
-                addLogEntry(`   🚩 mode-toggle: ${data.mode_toggle}`, 'flag');
-                addLogEntry(`   🚩 dynamic-content-widget: ${data.surprise_variant}`, 'flag');
-                addLogEntry(`   🚩 show-debug-panel: ${data.show_debug_panel}`, 'flag');
-                addLogEntry('   📤 Flags received from backend', 'success');
-            }
-            
-            return response;
-        };
     </script>
-    
-    <!-- Backend Log Console -->
-    <div class="log-console collapsed" id="logConsole">
-        <div class="log-console-header" id="logConsoleHeader">
-            <div class="log-console-title">
-                <span>🔍 Backend Logs</span>
-                <span id="logCount" style="font-size: 0.8em; color: #666;">0 logs</span>
-            </div>
-            <div class="log-console-controls">
-                <button class="log-console-btn" id="clearLogs">Clear</button>
-                <button class="log-console-btn" id="toggleConsole">▲</button>
-            </div>
-        </div>
-        <div class="log-console-content" id="logConsoleContent">
-            <div class="log-entry success">✅ Backend log console ready...</div>
-        </div>
-    </div>
 </body>
 </html>
