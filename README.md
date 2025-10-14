@@ -4,21 +4,21 @@
 
 ## Overview
 
-As a **Senior Solutions Engineer**, the most important thing for me is to **"Wear the customers’ shoes"**, understanding who my customer is and what problem they need solved. I spend time in their world, see things from their perspective, and design solutions that earns trust through every interaction, solving real problems not just showing features **(#NotADemoMonkey)**. 
+As a **Senior Solutions Engineer**, the most important thing for me is to **"Wear the customers’ shoes"**. This means understanding who my customer is and what problem they need solved. I like to spend time in their world, see things from their perspective and design solutions that earns trust through every interaction; solving real problems not just showing features **(#NotADemoMonkey)**. 
 
 For this project I wanted to build and understand the process end-to-end, approaching it both as a Software Engineer and as a Solutions Engineer **(SE²)**! That meant **planning/whiteboarding**, **sketching flows**, **considering risk**, **designing the user experience**, and **understanding exactly** how LaunchDarkly fits into real-world engineering workflows and product decisions.
 
-This repo isn’t just the final submission, it documents my thought process, trade-offs, debugging, and learning along the way, so I can confidently articulate **how** and **why** these solutions provide value to engineering teams.
+This repo isn’t just the final submission, it documents my thought process, trade-offs, debugging, and learnings along the way; so I can confidently articulate **how** and **why** these solutions provide value to engineering teams.
 
 To make things engaging (and fun), I built a small **"About Me" interactive site** and treated it like a **production feature rollout** with **flags, targeting, rollback, and experiments**.
 
- This repo documents both **the build** and **the thought process**. A good SE doesnt just focus on **how** it works but also highlights the **value it creates/brings** to the customer.
+This repo documents both **the build** and **the thought process**. A good SE doesnt just focus on **how** it works but also highlights the **value it creates/brings** to the customer.
 
 ---
 
 ## System Design Approach (Before Coding)
 
-I began by outlining flows and thinking like a real delivery team and also how I would explain to a user completely new to LD. These planning steps helped me structure my thinking like both a builder and a storyteller.
+I began by outlining flows, thinking like a real delivery team and also thinking about how I would explain LD to a completely new user. By planning my steps thoughtfully, it allowed me to structure this repo from both a builder and a storyteller perspective.
 
 ### System Overview: How launch darkly works/communicates with a Website and Segement ###
 <img width="2175" height="1097" alt="system Design Overview " src="https://github.com/user-attachments/assets/ecd5e557-de08-47f2-9d68-558c807f9bee" />
