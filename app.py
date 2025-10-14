@@ -21,20 +21,19 @@ CORS(app)
 # INITIALIZE LAUNCHDARKLY CLIENT
 # ============================================
 # Set your LaunchDarkly SDK key
-LAUNCHDARKLY_SDK_KEY = os.environ.get('LAUNCHDARKLY_SDK_KEY', 'sdk-c33b0d5d-5bb8-4b17-8b92-7191ab9abf7a')
+LAUNCHDARKLY_SDK_KEY = os.environ.get(
+    'LAUNCHDARKLY_SDK_KEY', 'sdk-c33b0d5d-5bb8-4b17-8b92-7191ab9abf7a')
 
 # Initialize LaunchDarkly SDK with Observability Plugin
-ldclient.set_config(Config(
-    LAUNCHDARKLY_SDK_KEY,
-    plugins=[
-        ObservabilityPlugin(
-            ObservabilityConfig(
-                service_name="about-me-demo",
-                service_version="1.0.0",
-            )
-        )
-    ]
-))
+ldclient.set_config(
+    Config(LAUNCHDARKLY_SDK_KEY,
+           plugins=[
+               ObservabilityPlugin(
+                   ObservabilityConfig(
+                       service_name="about-me-demo",
+                       service_version="1.0.0",
+                   ))
+           ]))
 ld_client = ldclient.get()
 
 # Check if SDK initialized successfully
@@ -42,16 +41,13 @@ if not ld_client.is_initialized():
     print('❌ SDK failed to initialize')
 else:
     print('✅ SDK successfully initialized')
-    
+
     # Tracking your memberId lets LaunchDarkly know you are connected
-    tracking_context = (
-        Context.builder('user-key-123abcde')
-        .kind('user')
-        .set('email', 'biz@face.dev')
-        .build()
-    )
+    tracking_context = (Context.builder('user-key-123abcde').kind('user').set(
+        'email', 'biz@face.dev').build())
     ld_client.track('68e01bdc6818ca09d507d02d', tracking_context)
     print('📊 Tracking event sent to LaunchDarkly')
+
 
 # ============================================
 # ROUTE 1: SERVE THE HOMEPAGE
@@ -60,6 +56,7 @@ else:
 def index():
     return render_template('index.html')
 
+
 # ============================================
 # ROUTE 2: GET FEATURE FLAGS FOR A USER
 # ============================================
@@ -67,15 +64,17 @@ def index():
 def get_feature_flags():
     user_data = request.json
 
-    print(f"\n📥 Received request for user: {user_data.get('email', 'unknown')}")
+    print(
+        f"\n📥 Received request for user: {user_data.get('email', 'unknown')}")
     print(f"   Role: {user_data.get('role', 'unknown')}")
 
     # Record observability log for incoming request
     observe.record_log(
-        f"Feature flag request for user: {user_data.get('email', 'unknown')}", 
-        logging.INFO, 
-        {"role": user_data.get('role', 'unknown'), "source": "api_endpoint"}
-    )
+        f"Feature flag request for user: {user_data.get('email', 'unknown')}",
+        logging.INFO, {
+            "role": user_data.get('role', 'unknown'),
+            "source": "api_endpoint"
+        })
 
     # Build LaunchDarkly Context
     context = Context.builder(user_data['email']) \
@@ -89,7 +88,10 @@ def get_feature_flags():
     print(f"   ✅ Built LaunchDarkly context")
 
     # Evaluate feature flags with observability span
-    with observe.start_span("evaluate-feature-flags", attributes={"user_role": user_data.get('role', 'unknown')}) as span:
+    with observe.start_span(
+            "evaluate-feature-flags",
+            attributes={"user_role": user_data.get('role',
+                                                   'unknown')}) as span:
         typewriter_animation = ld_client.variation(
             'type-writer-animation',
             context,
@@ -120,7 +122,9 @@ def get_feature_flags():
             False  # Default: hidden
         )
         print(f"   🚩 show-debug-panel: {show_debug_panel}")
-        print(f"   🔍 DEBUG: Flag type: {type(show_debug_panel)}, Value: {repr(show_debug_panel)}")
+        print(
+            f"   🔍 DEBUG: Flag type: {type(show_debug_panel)}, Value: {repr(show_debug_panel)}"
+        )
         span.set_attribute("flag.show_debug_panel", show_debug_panel)
 
     # Return flags to frontend
@@ -134,6 +138,7 @@ def get_feature_flags():
     print(f"   📤 Sending flags back to frontend\n")
     return jsonify(flags)
 
+
 # ============================================
 # ROUTE 3: HEALTH CHECK
 # ============================================
@@ -145,6 +150,7 @@ def health_check():
         'message': 'Flask backend is running!'
     })
 
+
 # ============================================
 # ROUTE 4: GET SEGMENT WRITE KEY
 # ============================================
@@ -153,33 +159,32 @@ def get_segment_key():
     segment_key = os.environ.get('SEGMENT_WRITE_KEY', '')
     return jsonify({'writeKey': segment_key})
 
+
 # ============================================
 # CLEANUP
 # ============================================
-# Note: In production with gunicorn, we let the LaunchDarkly client 
-# stay open for the lifetime of the worker process. It will be cleaned 
+# Note: In production with gunicorn, we let the LaunchDarkly client
+# stay open for the lifetime of the worker process. It will be cleaned
 # up automatically when the worker shuts down.
 import atexit
+
 
 @atexit.register
 def close_ld_client():
     ld_client.close()
     print("👋 LaunchDarkly client closed")
 
+
 # ============================================
 # START THE FLASK SERVER
 # ============================================
 if __name__ == '__main__':
-    print("\n" + "="*50)
+    print("\n" + "=" * 50)
     print("🚀 Starting Flask Server with LaunchDarkly")
-    print("="*50)
+    print("=" * 50)
     print("📍 Server running at: http://localhost:5000")
     print("📍 API endpoint: http://localhost:5000/api/feature-flags")
     print("📍 Health check: http://localhost:5000/api/health")
-    print("="*50 + "\n")
+    print("=" * 50 + "\n")
 
-    app.run(
-        host='0.0.0.0',
-        port=5000,
-        debug=True
-    )
+    app.run(host='0.0.0.0', port=5000, debug=True)
