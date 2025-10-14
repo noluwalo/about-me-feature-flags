@@ -7,7 +7,9 @@ from flask_cors import CORS
 import ldclient
 from ldclient.config import Config
 from ldclient import Context
+from ldobserve import ObservabilityConfig, ObservabilityPlugin, observe
 import os
+import logging
 
 # ============================================
 # INITIALIZE FLASK APP
@@ -21,7 +23,18 @@ CORS(app)
 # Set your LaunchDarkly SDK key
 LAUNCHDARKLY_SDK_KEY = os.environ.get('LAUNCHDARKLY_SDK_KEY', 'sdk-c33b0d5d-5bb8-4b17-8b92-7191ab9abf7a')
 
-ldclient.set_config(Config(LAUNCHDARKLY_SDK_KEY))
+# Initialize LaunchDarkly SDK with Observability Plugin
+ldclient.set_config(Config(
+    LAUNCHDARKLY_SDK_KEY,
+    plugins=[
+        ObservabilityPlugin(
+            ObservabilityConfig(
+                service_name="about-me-demo",
+                service_version="1.0.0",
+            )
+        )
+    ]
+))
 ld_client = ldclient.get()
 
 # Check if SDK initialized successfully
@@ -57,6 +70,13 @@ def get_feature_flags():
     print(f"\n📥 Received request for user: {user_data.get('email', 'unknown')}")
     print(f"   Role: {user_data.get('role', 'unknown')}")
 
+    # Record observability log for incoming request
+    observe.record_log(
+        f"Feature flag request for user: {user_data.get('email', 'unknown')}", 
+        logging.INFO, 
+        {"role": user_data.get('role', 'unknown'), "source": "api_endpoint"}
+    )
+
     # Build LaunchDarkly Context
     context = Context.builder(user_data['email']) \
         .kind('user') \
@@ -68,35 +88,40 @@ def get_feature_flags():
 
     print(f"   ✅ Built LaunchDarkly context")
 
-    # Evaluate feature flags
-    typewriter_animation = ld_client.variation(
-        'type-writer-animation',
-        context,
-        False  # Default: OFF
-    )
-    print(f"   🚩 type-writer-animation: {typewriter_animation}")
+    # Evaluate feature flags with observability span
+    with observe.start_span("evaluate-feature-flags", attributes={"user_role": user_data.get('role', 'unknown')}) as span:
+        typewriter_animation = ld_client.variation(
+            'type-writer-animation',
+            context,
+            False  # Default: OFF
+        )
+        print(f"   🚩 type-writer-animation: {typewriter_animation}")
+        span.set_attribute("flag.typewriter_animation", typewriter_animation)
 
-    mode_toggle = ld_client.variation(
-        'mode-toggle',
-        context,
-        'professional'  # Default: professional
-    )
-    print(f"   🚩 mode-toggle: {mode_toggle}")
+        mode_toggle = ld_client.variation(
+            'mode-toggle',
+            context,
+            'professional'  # Default: professional
+        )
+        print(f"   🚩 mode-toggle: {mode_toggle}")
+        span.set_attribute("flag.mode_toggle", mode_toggle)
 
-    surprise_variant = ld_client.variation(
-        'dynamic-content-widget',
-        context,
-        'books'  # Default: books
-    )
-    print(f"   🚩 dynamic-content-widget: {surprise_variant}")
+        surprise_variant = ld_client.variation(
+            'dynamic-content-widget',
+            context,
+            'books'  # Default: books
+        )
+        print(f"   🚩 dynamic-content-widget: {surprise_variant}")
+        span.set_attribute("flag.surprise_variant", surprise_variant)
 
-    show_debug_panel = ld_client.variation(
-        'show-debug-panel',
-        context,
-        False  # Default: hidden
-    )
-    print(f"   🚩 show-debug-panel: {show_debug_panel}")
-    print(f"   🔍 DEBUG: Flag type: {type(show_debug_panel)}, Value: {repr(show_debug_panel)}")
+        show_debug_panel = ld_client.variation(
+            'show-debug-panel',
+            context,
+            False  # Default: hidden
+        )
+        print(f"   🚩 show-debug-panel: {show_debug_panel}")
+        print(f"   🔍 DEBUG: Flag type: {type(show_debug_panel)}, Value: {repr(show_debug_panel)}")
+        span.set_attribute("flag.show_debug_panel", show_debug_panel)
 
     # Return flags to frontend
     flags = {

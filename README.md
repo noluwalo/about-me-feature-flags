@@ -25,6 +25,14 @@ A Flask-based "About Me" demo application showcasing **LaunchDarkly feature flag
 - A LaunchDarkly account (free tier available at [launchdarkly.com](https://launchdarkly.com))
 - A Segment account (free tier available at [segment.com](https://segment.com))
 
+## 🔍 LaunchDarkly Observability Plugin
+
+This project includes the **LaunchDarkly Observability Plugin** for enhanced monitoring and tracing:
+- **Service telemetry**: Tracks SDK operations with OpenTelemetry
+- **Custom logging**: Records important events and user interactions
+- **Span tracking**: Monitors feature flag evaluation performance
+- **Real-time insights**: View traces and logs in LaunchDarkly dashboard
+
 ## 🚀 Setup Instructions
 
 ### 1. Clone the Repository
@@ -37,7 +45,12 @@ cd YOUR-REPO-NAME
 ### 2. Install Dependencies
 
 ```bash
-pip install flask flask-cors gunicorn launchdarkly-server-sdk
+pip install -r requirements.txt
+```
+
+Or install individually:
+```bash
+pip install flask flask-cors gunicorn launchdarkly-server-sdk launchdarkly-observability
 ```
 
 ### 3. Set Up LaunchDarkly
@@ -136,6 +149,19 @@ The app will be available at: **http://localhost:5000**
 ```
 
 ## 🔑 Important Notes
+
+### Observability Features
+The app uses LaunchDarkly Observability Plugin to:
+- **Log feature flag requests** with user role and context
+- **Track flag evaluation spans** with performance metrics  
+- **Monitor SDK operations** with OpenTelemetry integration
+- View all telemetry in LaunchDarkly's Observability dashboard
+
+You can see this in action in `app.py`:
+- Lines 13-15: Import observability modules
+- Lines 32-39: Initialize plugin with service name and version
+- Lines 77-81: Record custom logs for API requests
+- Lines 95-127: Wrap flag evaluations in observability spans
 
 ### Security
 - **Never commit API keys** to the repository
