@@ -57,7 +57,6 @@ I began by outlining flows and thinking like a real delivery team and also how I
 ###  Frontend (HTML/CSS/JavaScript)
 - Typewriter animation (flag-controlled)
 - Mode toggle button (professional vs fun content)
-- Dynamic image/content cards
 - 🎲 **Surprise Me** button (variants controlled by LD experiment flag)
 - Debug panel for SE explanation/demo
 
