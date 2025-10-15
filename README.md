@@ -86,7 +86,7 @@ This live demo is a **published website** connected to my **LaunchDarkly account
    - View current values (typewriter animation, mode, variant)
    - Understand how flags control the entire experience
 
-**By exploring the live demo, you'll understand exactly how LaunchDarkly flags + Segment analytics work together to create personalized, measurable user experiences!**
+**Hopefully by exploring this demo, you'll see how LaunchDarkly flags and Segment analytics work together!**
 
 ## 🚀 Setup Instructions
 
