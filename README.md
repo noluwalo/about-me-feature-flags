@@ -54,8 +54,6 @@ This live demo is a **published website** connected to my **LaunchDarkly account
 
 **To see Segment tracking:** The app displays visual pop-ups showing all events being tracked and sent to Segment in real-time - including the events used for **metrics configuration in the Extra Credit (Part 3)** section. Perfect for those without a full Segment account to see the end-to-end integration in action!
 
-**See the full demo in action below** ⬇️
-
 ## 🎮 Explore the Live Demo (Understand What You're Building)
 
 **Interact with the live site to see all features in action:**
