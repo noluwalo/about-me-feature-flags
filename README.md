@@ -1,5 +1,5 @@
 # LaunchDarkly SE Technical Exercise: about-me-feature-flags
- "About Me" site showing/demoing LaunchDarkly feature flags (Setup instruction in Setup.md)
+ "About Me" site showing/demoing LaunchDarklys feature flags (Setup instruction in Setup.md)
 
 
 ## Overview
