@@ -61,9 +61,9 @@ This live demo is a **published website** connected to my **LaunchDarkly account
 1. **Start Exploring:** Open the published website and enter your name
 2. **Choose Your Experience:** Select "Recruiter" or "Teammate" to see role-based targeting
    - On the second screen, notice the **typewriter animation** automatically displaying my name character-by-character
-   - This is controlled by the `type-writer-animation` boolean flag (currently ON)
-   - Notice how the same app shows completely different content based on your role
-   - This demonstrates **Part 2: Multi-variate flags with user targeting**
+   - This is controlled by the `type-writer-animation` boolean flag (currently ON) - demonstrating **Part 1: Release and remediate with boolean flags**
+   - Notice how the same app shows completely different content based on your role (Professional vs Fun mode)
+   - This demonstrates **role-based targeting** with multi-variate flags
 
 3. **Watch Real-Time Tracking:** As you interact, visual pop-ups appear showing:
    - Every event being sent to Segment
