@@ -43,7 +43,7 @@ This project includes the **LaunchDarkly Observability Plugin** (added for explo
 
 **Try the website here:** [https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev](https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev)
 
-This live demo is a **published website** connected to my **LaunchDarkly account** with **all flags turned ON** AND my **full Segment account** for end-to-end tracking:
+This live demo is a **website** connected to my **LaunchDarkly account** with **all flags turned ON** AND my **full Segment account** for end-to-end tracking:
 - ✅ Typewriter animation is active
 - ✅ Role-based targeting is configured (Recruiter → Professional, Teammate → Fun)
 - ✅ A/B test is running for the "Surprise Me!" button
