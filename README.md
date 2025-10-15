@@ -148,12 +148,13 @@ Create the following feature flags in your LaunchDarkly project:
    - 50% → `fun-facts`
 3. Or create targeting rules by user attributes
 4. Save changes
-5. **Create metric and experiment** (see detailed instructions in "Step 4: Create Metrics in LaunchDarkly" and "Step 5: Attach Metric to Experiment" sections below)
 
 **For `show-debug-panel`** (Demo only):
 1. Turn **ON** to show debug panel
 2. Serve `true` to everyone
 3. Users will see [Debug] button at bottom of page
+
+**📊 Extra Credit Pre-Requisite:** To complete Part 3 (A/B experimentation with metrics), you must create a metric in LaunchDarkly and attach it to the `dynamic-content-widget` flag as an experiment. Follow the detailed step-by-step instructions in **"Step 4: Create Metrics in LaunchDarkly"** and **"Step 5: Attach Metric to Experiment"** sections below.
 
 #### d) Update SDK Key in Code
 In **`app.py` (line 27)**, replace the SDK key with yours:
