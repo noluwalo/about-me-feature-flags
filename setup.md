@@ -1,8 +1,9 @@
 # LaunchDarkly SE Technical Exercise: about-me-feature-flags
 
-**Setup Guide: LaunchDarkly + Segment Assessment**
+**Setup Guide: LaunchDarkly Assessment + Segment Integration** (A very thorough guide 😅)
 
- About Me site demonstrating **LaunchDarkly feature flags** + **Segment integration**  with a fun **get to know me** sprinkle on top. With personalized experiences for different user roles (Recruiter vs Teammate).
+
+ About Me site demonstrating **LaunchDarkly feature flags** + **Segment integration**  with a fun **get to know me** sprinkle on top. Including personalized experiences for different user roles (Recruiter vs Teammate).
 
 ## 🎯 Features
 
@@ -12,9 +13,9 @@
   - `dynamic-content-widget`: A/B test for "Surprise Me!" button - serves either book recommendations or fun facts
   - `show-debug-panel`: Demo-only debug panel (not a production flag, just for visualization)
 
-- **Segment Analytics Integration & Metrics**:
+- **Segment Integration & Metrics**:
   - Real-time event tracking for all user interactions
-  - User identification with auto-generated profiles
+  - Real-time identity resolved profiles
   - Custom event properties for detailed analytics
   - **Why Segment?** Acts as a data hub that captures events and forwards them to LaunchDarkly for experiment metrics, plus other destinations (Google Analytics, etc.)
   - Use Segment-tracked events to create metrics and run experiments in LaunchDarkly
@@ -75,7 +76,7 @@ This is a **website** connected to my **LaunchDarkly account** with **all flags 
 5. **Toggle Between Modes:** Click the mode toggle button
    - Watch the entire page transform (Professional ↔️ Fun)
    - See how feature flags control UI/UX dynamically
-   - This demonstrates **Part 1: Boolean flags for UI features**
+   - This demonstrates **Part 2: Context Targeting**
 
 6. **View Live Flags:** Click the [Debug] button at the bottom
    - See which flags are ON/OFF in real-time
@@ -168,7 +169,7 @@ Or in **`app.py` (line 127)**, you can hardcode it temporarily for testing:
 segment_key = os.environ.get('SEGMENT_WRITE_KEY', 'YOUR-WRITE-KEY-HERE')
 ```
 
-#### c) Connect Segment to LaunchDarkly for Metrics (Extra Credit)
+#### c) Connect Segment to LaunchDarkly (Actions Destination) for Metrics (Extra Credit)
 
 This integration allows Segment events to power LaunchDarkly experiment metrics.
 
