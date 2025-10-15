@@ -148,11 +148,29 @@ This integration allows Segment events to power LaunchDarkly experiment metrics.
 **Step 3: Map Track Events to Metrics**
 1. In the LaunchDarkly destination settings, click **Mappings** tab
 2. Click **New Mapping** → Select **Track Event** action
-3. Configure the mapping:
-   - **Event Name**: Leave default `{{ event }}` (Segment event name)
-   - **User ID**: Leave default `{{ userId }}` or use `{{ traits.email || properties.email || anonymousId }}`
-   - **Anonymous ID**: Leave default `{{ anonymousId }}`
+3. Configure the field mappings as follows:
+
+| Segment Field | LaunchDarkly Field | Mapping | Example Value |
+|---------------|-------------------|---------|---------------|
+| `event` | Event Name | `{{ event }}` | "Surprise Clicked" |
+| `userId` | Email | `{{ userId }}` | "agvbsdbrtf@example.com" |
+| `anonymousId` | Context Key | `{{ anonymousId }}` | "7c42798e-10c1-4a70-838a-58a8cdbf5754" |
+| (fixed value) | Context Kind | `user` | "user" |
+| `properties.variant` | AB variant | `{{ properties.variant }}` | "books" |
+| `properties.clicks` | Variant clicks | `{{ properties.clicks }}` | 11 |
+
 4. Click **Save**
+
+**Result:** When a `Surprise Clicked` event fires in Segment, LaunchDarkly receives:
+```json
+{
+    "Event Name": "Surprise Clicked",
+    "Email": "agvbsdbrtf@example.com",
+    "Context Kind": "user",
+    "AB variant": "books",
+    "Variant clicks": 11
+}
+```
 
 **Step 4: Create Metrics in LaunchDarkly**
 1. In LaunchDarkly, go to **Metrics** → **Create metric**
