@@ -75,9 +75,33 @@ Create the following feature flags in your LaunchDarkly project:
 | `show-debug-panel` | Boolean | true/false | false | Demo visualization only |
 
 #### c) Configure Flag Targeting
-- **For `mode-toggle`**: Create a rule where `role = "recruiter"` serves `"professional"`, and `role = "teammate"` serves `"fun"`
-- **For `dynamic-content-widget`**: Set up A/B test with 50/50 split between "books" and "fun-facts" variations
-- Turn ON all flags for testing
+
+**For `type-writer-animation`** (Boolean flag):
+1. Turn the flag **ON** (toggle to the right)
+2. Under "Default rule", select **"Serve: true"**
+3. Save changes
+4. All users will now see the animated typewriter effect for the name display
+
+**For `mode-toggle`** (Multi-variate targeting):
+1. Turn the flag **ON**
+2. Add targeting rule: 
+   - **IF** `role` **is one of** `recruiter` → **THEN serve** `professional`
+   - **IF** `role` **is one of** `teammate` → **THEN serve** `fun`
+3. Default rule: Serve `professional`
+4. Save changes
+
+**For `dynamic-content-widget`** (A/B test):
+1. Turn the flag **ON**
+2. Set up percentage rollout for A/B test:
+   - 50% → `books`
+   - 50% → `fun-facts`
+3. Or create targeting rules by user attributes
+4. Save changes
+
+**For `show-debug-panel`** (Demo only):
+1. Turn **ON** to show debug panel
+2. Serve `true` to everyone
+3. Users will see [Debug] button at bottom of page
 
 #### d) Update SDK Key in Code
 In **`app.py` (line 27)**, replace the SDK key with yours:
@@ -170,6 +194,18 @@ gunicorn --bind=0.0.0.0:5000 --reuse-port app:app
 ```
 
 The app will be available at: **http://localhost:5000**
+
+## 🌐 Live Demo
+
+**Try the live version here:** [https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev](https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev)
+
+This live demo is connected to my LaunchDarkly account with **all flags turned ON**:
+- ✅ Typewriter animation is active
+- ✅ Role-based targeting is configured (Recruiter → Professional, Teammate → Fun)
+- ✅ A/B test is running for the "Surprise Me!" button
+- ✅ Debug panel is enabled
+
+**To see live flags:** Click the **[Debug]** button at the bottom of the page to view real-time flag values and their current state.
 
 ## 🎮 How to Use
 
