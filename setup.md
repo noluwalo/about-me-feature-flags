@@ -2,7 +2,7 @@
 
 **Setup Guide: LaunchDarkly + Segment Assessment**
 
- "About Me" site demonstrating **LaunchDarkly feature flags** and **Segment Analytics integration**, with personalized experiences for different user roles (Recruiter vs Teammate).
+ About Me site demonstrating **LaunchDarkly feature flags** + **Segment integration**  with a fun **get to know me** sprinkle on top. With personalized experiences for different user roles (Recruiter vs Teammate).
 
 ## 🎯 Features
 
@@ -31,30 +31,26 @@
 
 ## 🔍 LaunchDarkly Observability Plugin
 
-This project includes the **LaunchDarkly Observability Plugin** (added for exploration and learning):
-- **Service telemetry**: Tracks SDK operations with OpenTelemetry
-- **Custom logging**: Records important events and user interactions
-- **Span tracking**: Monitors feature flag evaluation performance
-- **Real-time insights**: View traces and logs in LaunchDarkly dashboard
-
-*Note: This was implemented to explore advanced SDK features and is not required for basic flag functionality.*
+This project includes the **LaunchDarkly Observability Plugin** (added just to play around with and see)
 
 ## 🌐 Live Demo
 
-**Try the website here:** [https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev](https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev)
+**Try My website here:** [https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev](https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev)
 
-This live demo is a **website** connected to my **LaunchDarkly account** with **all flags turned ON** AND my **full Segment account** for end-to-end tracking:
+This is a **website** connected to my **LaunchDarkly account** with **all flags turned ON** AND my **full Segment account** for end-to-end tracking:
 - ✅ Typewriter animation is active
 - ✅ Role-based targeting is configured (Recruiter → Professional, Teammate → Fun)
 - ✅ A/B test is running for the "Surprise Me!" button
 - ✅ Debug panel is enabled
-- ✅ Segment events tracked in real-time
+- ✅ Segment events tracked in real-time ( `page_view`,`Mode Toggle Clicked`,`surprise_button_click`,`typewriter_displayed`,`debug_panel_viewed`,`User Role Changed`,`Identify Calls`)
+
+
 
 **To see live flags:** Click the **[Debug]** button at the bottom of the page to view real-time flag values and their current state.
 
-**To see Segment tracking:** The app displays visual pop-ups showing all events being tracked and sent to Segment in real-time - including the events used for **metrics configuration in the Extra Credit (Part 3)** section. Perfect for those without a full Segment account to see the end-to-end integration in action!
+**To see Segment tracking:** The app displays visual pop-ups showing all events being tracked and sent to Segment in real-time (including the events used for **metrics configuration in the Extra Credit (Part 3)** section. Perfect for those **without a full Segment account** to see the end-to-end integration in action!)
 
-## 🎮 Explore the Live Demo (Understand What You're Building)
+## 🎮 Explore My Demo Site (Understand What You're Building)
 
 **Interact with the live site to see all features in action:**
 
@@ -86,7 +82,7 @@ This live demo is a **website** connected to my **LaunchDarkly account** with **
    - View current values (typewriter animation, mode, variant)
    - Understand how flags control the entire experience
 
-**Hopefully by exploring this demo, you'll see how LaunchDarkly flags and Segment analytics work together!**
+**Hopefully by exploring this demo site, you'll see how LaunchDarkly flags and Segment work together!**
 
 ## 🚀 Setup Instructions
 
@@ -277,17 +273,7 @@ You can now use it the same way as described in the "How to Use the Live Demo" s
 - **Hypothesis**: Fun facts increase engagement more than book recommendations
 - **Metric**: Track click count via Segment events
 
-## 📁 Project Structure
 
-```
-├── app.py                    # Flask backend with LaunchDarkly SDK integration
-├── templates/
-│   └── index.html           # Frontend with Segment Analytics JavaScript
-├── static/
-│   └── images/              # Personal photos for demo
-├── requirements.txt         # Python dependencies
-└── README.md               # This file
-```
 
 ## 🔑 Important Notes
 
@@ -307,8 +293,6 @@ The app sends user context to LaunchDarkly with these attributes:
 You can create custom targeting rules based on these attributes.
 
 ### Security
-- **Never commit API keys** to the repository
-- Use environment variables for secrets
 - Replace placeholder SDK keys in:
   - **`app.py` line 27**: LaunchDarkly SDK key
   - **`app.py` line 127**: Segment Write Key (via environment variable)
