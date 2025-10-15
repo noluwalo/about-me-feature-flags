@@ -20,7 +20,7 @@ This repo documents both **the build** and **the thought process**. A good SE do
 
 I began by outlining flows, thinking like a real delivery team and also thinking about how I would explain LD to a completely new user. By planning my steps thoughtfully, it allowed me to structure this repo from both a builder and a storyteller perspective.
 
-### System Overview: How launch darkly works/communicates with a Website and Segement ###
+### System Overview: How Launch Darkly works/communicates with a Website and Segment ###
 <img width="2175" height="1097" alt="system Design Overview " src="https://github.com/user-attachments/assets/ecd5e557-de08-47f2-9d68-558c807f9bee" />
 
 
@@ -35,7 +35,7 @@ How in theory did I want these flags to work
 
 
 **Flow 3 — Surprise Me Button** Show experimentation & analytics impact ( A/B Testing + Segment integration )
-<img width="834" height="1101" alt="flow3 suprise button (AB Experiment)" src="https://github.com/user-attachments/assets/2a9e4619-fec8-4387-8514-cbb7998af332" />
+<img width="834" height="1101" alt="flow3 surprise button (AB Experiment)" src="https://github.com/user-attachments/assets/2a9e4619-fec8-4387-8514-cbb7998af332" />
 
 
 **UI Sketch Draft** 
