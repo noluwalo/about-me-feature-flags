@@ -285,25 +285,6 @@ You can now use it the same way as described in the "How to Use the Live Demo" s
 - **Hypothesis**: Fun facts increase engagement more than book recommendations
 - **Metric**: Track click count via Segment events
 
-### Segment Analytics & Metrics
-1. Go to your Segment **Debugger** page
-2. Submit the form and interact with the app
-3. You should see tracked events:
-   - `User Submitted Form`
-   - `Mode Toggle Clicked`
-   - `Surprise Clicked` (with variant and click count)
-4. These events flow to LaunchDarkly for experiment metrics
-
-**Data Flow:**
-```
-User clicks "Surprise Me!" 
-  → Segment tracks event: "Surprise Clicked" with {variant: "books", clicks: 3}
-  → Event sent to LaunchDarkly (Actions) destination
-  → LaunchDarkly metric receives event
-  → Experiment dashboard updates with results per variation
-  → You see which variant (books vs fun-facts) drives more engagement!
-```
-
 ## 📁 Project Structure
 
 ```
