@@ -4,7 +4,7 @@
 
 ## Overview
 
-As a **Senior Solutions Engineer**, the most important thing for me is to **"Wear the customers’ shoes"**. This means understanding who my customer is and what problem they need solved. I like to spend time in their world, see things from their perspective and design custom solutions/demos that earns trust through every interaction; solving real problems not just showing features **(#NotADemoMonkey)**. 
+As a **Senior Solutions Engineer**, the most important thing for me is to **"Wear the customers’ shoes"**. This means understanding who my customer is and what problem they need solved. I like to spend time in their world, see things from their perspective and design custom solutions/demos that earns trust through every interaction; solving real problems, not just showing features **(#NotADemoMonkey)**. 
 
 For this project I wanted to build and understand the process end-to-end, approaching it both as a Software Engineer and as a Solutions Engineer **(SE²)**! That meant **planning/whiteboarding**, **sketching flows**, **considering risk**, **designing the user experience**, and **understanding exactly** how LaunchDarkly fits into real-world engineering workflows and product decisions.
 
