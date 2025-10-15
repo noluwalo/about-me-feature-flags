@@ -114,6 +114,10 @@ pip install flask flask-cors gunicorn launchdarkly-server-sdk launchdarkly-obser
 1. Log in to your [LaunchDarkly account](https://app.launchdarkly.com)
 2. Go to **Account settings** → **Projects** → Your project
 3. Copy your **SDK key** (starts with `sdk-`)
+4. In **`app.py` (line 27)**, replace the SDK key with yours:
+```python
+LAUNCHDARKLY_SDK_KEY = os.environ.get('LAUNCHDARKLY_SDK_KEY', 'YOUR-SDK-KEY-HERE')
+```
 
 #### b) Create Feature Flags
 Create the following feature flags in your LaunchDarkly project:
@@ -149,18 +153,12 @@ Create the following feature flags in your LaunchDarkly project:
 3. Or create targeting rules by user attributes
 4. Save changes
 
+**📊 Extra Credit Pre-Requisite:** To complete Part 3 (A/B experimentation with metrics), you must create a metric in LaunchDarkly and attach it to the `dynamic-content-widget` flag as an experiment. Follow the detailed step-by-step instructions in **"Step 4: Create Metrics in LaunchDarkly"** and **"Step 5: Attach Metric to Experiment"** sections below.
+
 **For `show-debug-panel`** (Demo only):
 1. Turn **ON** to show debug panel
 2. Serve `true` to everyone
 3. Users will see [Debug] button at bottom of page
-
-**📊 Extra Credit Pre-Requisite:** To complete Part 3 (A/B experimentation with metrics), you must create a metric in LaunchDarkly and attach it to the `dynamic-content-widget` flag as an experiment. Follow the detailed step-by-step instructions in **"Step 4: Create Metrics in LaunchDarkly"** and **"Step 5: Attach Metric to Experiment"** sections below.
-
-#### d) Update SDK Key in Code
-In **`app.py` (line 27)**, replace the SDK key with yours:
-```python
-LAUNCHDARKLY_SDK_KEY = os.environ.get('LAUNCHDARKLY_SDK_KEY', 'YOUR-SDK-KEY-HERE')
-```
 
 ### 4. Set Up Segment Analytics
 
