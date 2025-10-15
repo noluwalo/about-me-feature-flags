@@ -1,6 +1,8 @@
-# LaunchDarkly & Segment Analytics Demo - About Me Page
+# LaunchDarkly SE Technical Exercise: About-Me Feature Flags
 
-A Flask-based "About Me" demo application showcasing **LaunchDarkly feature flags** and **Segment Analytics integration**, with personalized experiences for different user roles (Recruiter vs Teammate).
+**Setup Guide: LaunchDarkly + Segment Assessment**
+
+A Flask-based "About Me" application demonstrating **LaunchDarkly feature flags** and **Segment Analytics integration**, with personalized experiences for different user roles (Recruiter vs Teammate).
 
 ## 🎯 Features
 
