@@ -37,6 +37,18 @@ This project includes the **LaunchDarkly Observability Plugin** (added for explo
 
 *Note: This was implemented to explore advanced SDK features and is not required for basic flag functionality.*
 
+## 🌐 Live Demo
+
+**Try the live version here:** [https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev](https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev)
+
+This live demo is connected to my LaunchDarkly account with **all flags turned ON**:
+- ✅ Typewriter animation is active
+- ✅ Role-based targeting is configured (Recruiter → Professional, Teammate → Fun)
+- ✅ A/B test is running for the "Surprise Me!" button
+- ✅ Debug panel is enabled
+
+**To see live flags:** Click the **[Debug]** button at the bottom of the page to view real-time flag values and their current state.
+
 ## 🚀 Setup Instructions
 
 ### 1. Clone the Repository
@@ -212,18 +224,6 @@ gunicorn --bind=0.0.0.0:5000 --reuse-port app:app
 ```
 
 The app will be available at: **http://localhost:5000**
-
-## 🌐 Live Demo
-
-**Try the live version here:** [https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev](https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev)
-
-This live demo is connected to my LaunchDarkly account with **all flags turned ON**:
-- ✅ Typewriter animation is active
-- ✅ Role-based targeting is configured (Recruiter → Professional, Teammate → Fun)
-- ✅ A/B test is running for the "Surprise Me!" button
-- ✅ Debug panel is enabled
-
-**To see live flags:** Click the **[Debug]** button at the bottom of the page to view real-time flag values and their current state.
 
 ## 🎮 How to Use
 
