@@ -54,17 +54,37 @@ This live demo is a **published website** connected to my **LaunchDarkly account
 
 **See the full demo in action below** ⬇️
 
-## 🎮 How to Use the Live Demo
+## 🎮 Explore the Live Demo (Understand What You're Building)
 
-1. **Visit the live website:** Click the link above to open the published demo
-2. **Enter your details:**
-   - Name (email is auto-generated from name for user tracking)
-   - Select role: **Recruiter** (Professional mode) or **Teammate** (Fun mode)
-3. **Click Submit** to see personalized content based on LaunchDarkly flags
-4. **Watch for visual pop-ups** showing Segment events being tracked in real-time
-5. **Toggle modes** using the toggle button to see different experiences
-6. **Click "Surprise Me!"** to see A/B test variations (book recommendations or fun facts)
-7. **Click [Debug]** button at the bottom to view real-time flag values
+**Interact with the live site to see all features in action:**
+
+1. **Start Exploring:** Open the published website and enter your name
+2. **Choose Your Experience:** Select "Recruiter" or "Teammate" to see role-based targeting
+   - Notice how the same app shows completely different content based on your role
+   - This demonstrates **Part 2: Multi-variate flags with user targeting**
+
+3. **Watch Real-Time Tracking:** As you interact, visual pop-ups appear showing:
+   - Every event being sent to Segment
+   - User identification and properties
+   - Event data that powers LaunchDarkly experiments
+   - This demonstrates the **Segment → LaunchDarkly metrics integration**
+
+4. **See the A/B Test:** Click the "Surprise Me!" button multiple times
+   - You'll get either book recommendations OR fun facts (50/50 split)
+   - Each click is tracked as a metric event
+   - This demonstrates **Part 3: A/B experimentation with metrics**
+
+5. **Toggle Between Modes:** Click the mode toggle button
+   - Watch the entire page transform (Professional ↔️ Fun)
+   - See how feature flags control UI/UX dynamically
+   - This demonstrates **Part 1: Boolean flags for UI features**
+
+6. **View Live Flags:** Click the [Debug] button at the bottom
+   - See which flags are ON/OFF in real-time
+   - View current values (typewriter animation, mode, variant)
+   - Understand how flags control the entire experience
+
+**By exploring the live demo, you'll understand exactly how LaunchDarkly flags + Segment analytics work together to create personalized, measurable user experiences!**
 
 ## 🚀 Setup Instructions
 
