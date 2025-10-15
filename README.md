@@ -127,7 +127,6 @@ Create the following feature flags in your LaunchDarkly project:
 | `type-writer-animation` | Boolean | true/false | false | Part 1: Toggle UI feature |
 | `mode-toggle` | String | "professional", "fun" | "professional" | Part 2: User targeting by role |
 | `dynamic-content-widget` | String | "books", "fun-facts" | "books" | Part 3: A/B test for Surprise button |
-| `show-debug-panel` | Boolean | true/false | false | Demo visualization only |
 
 #### c) Configure Flag Targeting
 
@@ -154,11 +153,6 @@ Create the following feature flags in your LaunchDarkly project:
 4. Save changes
 
 **📊 Extra Credit Pre-Requisite:** To complete Part 3 (A/B experimentation with metrics), you must create a metric in LaunchDarkly and attach it to the `dynamic-content-widget` flag as an experiment. Follow the detailed step-by-step instructions in **"Step 4: Create Metrics in LaunchDarkly"** and **"Step 5: Attach Metric to Experiment"** sections below.
-
-**For `show-debug-panel`** (Demo only):
-1. Turn **ON** to show debug panel
-2. Serve `true` to everyone
-3. Users will see [Debug] button at bottom of page
 
 ### 4. Set Up Segment Analytics
 
