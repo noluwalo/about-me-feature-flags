@@ -39,9 +39,9 @@ This project includes the **LaunchDarkly Observability Plugin** (added for explo
 
 ## 🌐 Live Demo
 
-**Try the live version here:** [https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev](https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev)
+**Try the published website here:** [https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev](https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev)
 
-This live demo is connected to my **LaunchDarkly account** with **all flags turned ON** AND my **full Segment account** for end-to-end tracking:
+This live demo is a **published website** connected to my **LaunchDarkly account** with **all flags turned ON** AND my **full Segment account** for end-to-end tracking:
 - ✅ Typewriter animation is active
 - ✅ Role-based targeting is configured (Recruiter → Professional, Teammate → Fun)
 - ✅ A/B test is running for the "Surprise Me!" button
@@ -51,6 +51,20 @@ This live demo is connected to my **LaunchDarkly account** with **all flags turn
 **To see live flags:** Click the **[Debug]** button at the bottom of the page to view real-time flag values and their current state.
 
 **To see Segment tracking:** The app displays visual pop-ups showing all events being tracked and sent to Segment in real-time - perfect for those without a full Segment account to see the end-to-end integration in action!
+
+**See the full demo in action below** ⬇️
+
+## 🎮 How to Use the Live Demo
+
+1. **Visit the live website:** Click the link above to open the published demo
+2. **Enter your details:**
+   - Name (email is auto-generated from name for user tracking)
+   - Select role: **Recruiter** (Professional mode) or **Teammate** (Fun mode)
+3. **Click Submit** to see personalized content based on LaunchDarkly flags
+4. **Watch for visual pop-ups** showing Segment events being tracked in real-time
+5. **Toggle modes** using the toggle button to see different experiences
+6. **Click "Surprise Me!"** to see A/B test variations (book recommendations or fun facts)
+7. **Click [Debug]** button at the bottom to view real-time flag values
 
 ## 🚀 Setup Instructions
 
@@ -229,16 +243,7 @@ gunicorn --bind=0.0.0.0:5000 --reuse-port app:app
 
 The app will be available at: **http://localhost:5000**
 
-## 🎮 How to Use
-
-1. **Open the app** in your browser at `http://localhost:5000`
-2. **Enter your details**:
-   - Name (email is auto-generated from name for user tracking)
-   - Select role: **Recruiter** (Professional mode) or **Teammate** (Fun mode)
-3. **Click Submit** to see personalized content based on LaunchDarkly flags
-4. **Toggle modes** using the toggle button to see different experiences
-5. **Click "Surprise Me!"** to see A/B test variations (book recommendations or fun facts)
-6. **[Debug Panel]** button shows real-time flag values if `show-debug-panel` flag is ON
+You can now use it the same way as described in the "How to Use the Live Demo" section above!
 
 ## 🔍 What to Test
 
