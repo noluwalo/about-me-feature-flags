@@ -1,4 +1,4 @@
-# LaunchDarkly SE Technical Exercise: About-Me Feature Flags
+# LaunchDarkly SE Technical Exercise: about-me-feature-flags
 
 **Setup Guide: LaunchDarkly + Segment Assessment**
 
