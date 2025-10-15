@@ -12,7 +12,7 @@ This repo isn’t just the final submission, it documents my thought process, tr
 
 To make things engaging (and fun), I built a small **"About Me" interactive site** and treated it like a **production feature rollout** with **flags, targeting, rollback, and experiments**.
 
-This repo documents both **the build** and **the thought process**. A good SE doesnt just focus on **how** it works but also highlights the **value it creates/brings** to the customer.
+This repo documents both **the build** and **the thought process**. A good SE doesnt just focus on **how** it works, but also highlights the **value it creates/brings** to the customer.
 
 ---
 
