@@ -26,6 +26,7 @@ I began by outlining flows, thinking like a real delivery team and also thinking
 
 ### Flags ### 
 How in theory did I want these flags to work
+
 **Flow 1 — Typewriter Animation** Release with instant rollback control 
 <img width="848" height="916" alt="Flow1 Typewriter Animation (Release   Remediate)" src="https://github.com/user-attachments/assets/de207da3-ad0c-48ff-9488-4f0b3482dc56" />
 
