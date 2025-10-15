@@ -59,8 +59,8 @@ This live demo is a **published website** connected to my **LaunchDarkly account
 **Interact with the live site to see all features in action:**
 
 1. **Start Exploring:** Open the published website and enter your name
-   - Notice the **typewriter animation** displaying your name character-by-character
-   - This is controlled by the `type-writer-animation` boolean flag
+   - Notice the **typewriter animation** automatically displaying my name character-by-character
+   - This is controlled by the `type-writer-animation` boolean flag (currently ON)
 2. **Choose Your Experience:** Select "Recruiter" or "Teammate" to see role-based targeting
    - Notice how the same app shows completely different content based on your role
    - This demonstrates **Part 2: Multi-variate flags with user targeting**
