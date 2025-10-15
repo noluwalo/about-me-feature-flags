@@ -2,7 +2,7 @@
 
 **Setup Guide: LaunchDarkly + Segment Assessment**
 
-A Flask-based "About Me" application demonstrating **LaunchDarkly feature flags** and **Segment Analytics integration**, with personalized experiences for different user roles (Recruiter vs Teammate).
+ "About Me" site demonstrating **LaunchDarkly feature flags** and **Segment Analytics integration**, with personalized experiences for different user roles (Recruiter vs Teammate).
 
 ## 🎯 Features
 
