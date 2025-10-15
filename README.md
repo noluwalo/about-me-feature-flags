@@ -103,11 +103,61 @@ Or in **`app.py` (line 127)**, you can hardcode it temporarily for testing:
 segment_key = os.environ.get('SEGMENT_WRITE_KEY', 'YOUR-WRITE-KEY-HERE')
 ```
 
-#### c) Connect Segment to LaunchDarkly (Extra Credit)
-1. In Segment, go to **Connections** → **Destinations**
-2. Add **LaunchDarkly** as a destination
-3. Configure it to send events to LaunchDarkly for experiment metrics
-4. Now your tracked events can power LaunchDarkly experiments!
+#### c) Connect Segment to LaunchDarkly for Metrics (Extra Credit)
+
+This integration allows Segment events to power LaunchDarkly experiment metrics.
+
+**Step 1: Get LaunchDarkly Client-side ID**
+1. In LaunchDarkly, go to **Account settings** → **Projects** → Your project
+2. Select your environment (e.g., Production, Test)
+3. Copy the **Client-side ID** (starts with a random string like `63a1e2b3c4d5e6f7`)
+
+**Step 2: Add LaunchDarkly Destination in Segment**
+1. In Segment, go to **Connections** → **Catalog**
+2. Search for **"LaunchDarkly (Actions)"** and click it
+3. Click **Configure LaunchDarkly (Actions)**
+4. Select your JavaScript source (the one tracking events)
+5. Click **Next** and name it (e.g., "LaunchDarkly Metrics")
+6. Paste your **LaunchDarkly Client-side ID** from Step 1
+7. Click **Create Destination**
+
+**Step 3: Map Track Events to Metrics**
+1. In the LaunchDarkly destination settings, click **Mappings** tab
+2. Click **New Mapping** → Select **Track Event** action
+3. Configure the mapping:
+   - **Event Name**: Leave default `{{ event }}` (Segment event name)
+   - **User ID**: Leave default `{{ userId }}` or use `{{ traits.email || properties.email || anonymousId }}`
+   - **Anonymous ID**: Leave default `{{ anonymousId }}`
+4. Click **Save**
+
+**Step 4: Create Metrics in LaunchDarkly**
+1. In LaunchDarkly, go to **Metrics** → **Create metric**
+2. Create a metric with these settings:
+   - **Name**: "Surprise Button Clicks"
+   - **Event kind**: Custom
+   - **Event name**: `Surprise Clicked` (MUST match Segment event name exactly)
+   - **Metric type**: Custom conversion (count)
+   - **Success criteria**: Higher is better
+3. Click **Save metric**
+
+**Step 5: Attach Metric to Experiment**
+1. Go to your `dynamic-content-widget` flag
+2. Click **Experiments** tab → **Create experiment**
+3. Select your "Surprise Button Clicks" metric
+4. Set hypothesis: "Fun facts increase engagement vs books"
+5. Click **Start recording**
+
+**Step 6: Verify Integration**
+1. Interact with the app (click "Surprise Me!" button)
+2. Check Segment **Debugger** - you should see `Surprise Clicked` events
+3. Check LaunchDarkly **Metrics** dashboard - events should appear within 1-2 minutes
+4. View experiment results showing click rates per variation
+
+**Important Field Mapping Rules:**
+- ✅ Segment `event name` MUST exactly match LaunchDarkly `metric event key`
+- ✅ Segment `userId` or `anonymousId` must match LaunchDarkly context key
+- ✅ In this project: `Surprise Clicked` event → `Surprise Clicked` metric
+- ✅ Track events include properties like `variant` and `clicks` for richer analysis
 
 ### 5. Run the Application
 
@@ -157,6 +207,16 @@ The app will be available at: **http://localhost:5000**
    - `Mode Toggle Clicked`
    - `Surprise Clicked` (with variant and click count)
 4. These events flow to LaunchDarkly for experiment metrics
+
+**Data Flow:**
+```
+User clicks "Surprise Me!" 
+  → Segment tracks event: "Surprise Clicked" with {variant: "books", clicks: 3}
+  → Event sent to LaunchDarkly (Actions) destination
+  → LaunchDarkly metric receives event
+  → Experiment dashboard updates with results per variation
+  → You see which variant (books vs fun-facts) drives more engagement!
+```
 
 ## 📁 Project Structure
 
