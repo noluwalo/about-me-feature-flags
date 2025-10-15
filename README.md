@@ -112,6 +112,7 @@ Create the following feature flags in your LaunchDarkly project:
    - 50% → `fun-facts`
 3. Or create targeting rules by user attributes
 4. Save changes
+5. **Create metric and experiment** (see detailed instructions in "Step 4: Create Metrics in LaunchDarkly" and "Step 5: Attach Metric to Experiment" sections below)
 
 **For `show-debug-panel`** (Demo only):
 1. Turn **ON** to show debug panel
