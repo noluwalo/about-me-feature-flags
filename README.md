@@ -41,13 +41,16 @@ This project includes the **LaunchDarkly Observability Plugin** (added for explo
 
 **Try the live version here:** [https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev](https://b93cf3d1-66b7-4349-863d-b1c51311cb49-00-2cizuga4iat8t.picard.replit.dev)
 
-This live demo is connected to my LaunchDarkly account with **all flags turned ON**:
+This live demo is connected to my **LaunchDarkly account** with **all flags turned ON** AND my **full Segment account** for end-to-end tracking:
 - ✅ Typewriter animation is active
 - ✅ Role-based targeting is configured (Recruiter → Professional, Teammate → Fun)
 - ✅ A/B test is running for the "Surprise Me!" button
 - ✅ Debug panel is enabled
+- ✅ Segment events tracked in real-time
 
 **To see live flags:** Click the **[Debug]** button at the bottom of the page to view real-time flag values and their current state.
+
+**To see Segment tracking:** The app displays visual pop-ups showing all events being tracked and sent to Segment in real-time - perfect for those without a full Segment account to see the end-to-end integration in action!
 
 ## 🚀 Setup Instructions
 
