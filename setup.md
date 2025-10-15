@@ -90,8 +90,8 @@ This is a **website** connected to my **LaunchDarkly account** with **all flags 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git
-cd YOUR-REPO-NAME
+git clone https://github.com/noluwalo/about-me-feature-flags.git
+cd about-me-feature-flags
 ```
 
 ### 2. Install Dependencies
